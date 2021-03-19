@@ -7,9 +7,10 @@ import FormTextInput from "./src/components/FormTextInput";
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text> Hi </Text>
-      <FormTextInput></FormTextInput>
-      <Button></Button>
+      <Text> Let Eat Go </Text>
+      <FormTextInput placeholder="Email"></FormTextInput>
+      <FormTextInput placeholder="Password"></FormTextInput>
+      <Button text="Log In"></Button>
       <StatusBar style="auto" />
     </View>
   );
