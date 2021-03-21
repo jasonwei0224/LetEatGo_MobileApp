@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function UserScreen() {
+export default function TestScreen() {
   return (
 
-      <View style={styles.container}>
-        <View style = {styles.header}></View>
-      </View>
+    <View style={styles.container}>
+      <Text> Hi this is a testscreen</Text>
+    </View>
   );
 }
 
@@ -17,8 +17,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  header: {
-      flex:5,
-      backgroundColor : "#F2994A"
-  }
 });
