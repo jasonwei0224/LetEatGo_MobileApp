@@ -15,7 +15,7 @@ export default function Button(props){
 const styles = StyleSheet.create({
     button: {
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
+        backgroundColor: "#F2994A",
         padding: 10
       },
   });

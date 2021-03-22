@@ -1,16 +1,13 @@
-
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import SplashScreen from './src/screens/SplashScreen'
-import {NavigationContainer} from "@react-navigation/native";
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-import {createStackNavigator} from '@react-navigation/stack';
-import TabNavigatorRoutes from './src/screens/TabNavigatorRoutes'
-import UserScreen from './src/screens/UserScreen'
-import RegisterScreen from './src/screens/RegisterScreen'
-
-
+import SplashScreen from "./src/screens/SplashScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
+import TabNavigatorRoutes from "./src/screens/TabNavigatorRoutes";
+import UserScreen from "./src/screens/userScreen.jsx";
+import RegisterScreen from "./src/screens/RegisterScreen";
 
 const Stack = createStackNavigator();
 
@@ -20,19 +17,19 @@ const Auth = () => {
       <Stack.Screen
         name="UserScreen"
         component={UserScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="RegisterScreen"
         component={RegisterScreen}
         options={{
-          title: 'Register', //Set Header Title
+          title: "Register", //Set Header Title
           headerStyle: {
-            backgroundColor: '#307ecc', //Set Header color
+            backgroundColor: "#307ecc", //Set Header color
           },
-          headerTintColor: '#fff', //Set Header text color
+          headerTintColor: "#fff", //Set Header text color
           headerTitleStyle: {
-            fontWeight: 'bold', //Set Header text style
+            fontWeight: "bold", //Set Header text style
           },
         }}
       />
@@ -43,22 +40,21 @@ const Auth = () => {
 export default function App() {
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName = "SplashScreen">
-      <Stack.Screen 
-        name = "SplashScreen" 
-        component = {SplashScreen}
-        options={{headerShown: false}}></Stack.Screen>
-      <Stack.Screen 
-        name = "Auth" 
-        component = {Auth}
-        options={{headerShown: false}}></Stack.Screen>
-      <Stack.Screen 
-        name = "TabNavigatorRoutes" 
-        component = {TabNavigatorRoutes}
-        options={{headerShown: false}}></Stack.Screen>
-    </Stack.Navigator>
+      <Stack.Navigator initialRouteName="SplashScreen">
+        <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+          options={{ headerShown: false }}></Stack.Screen>
+        <Stack.Screen
+          name="Auth"
+          component={Auth}
+          options={{ headerShown: false }}></Stack.Screen>
+        <Stack.Screen
+          name="TabNavigatorRoutes"
+          component={TabNavigatorRoutes}
+          options={{ headerShown: false }}></Stack.Screen>
+      </Stack.Navigator>
     </NavigationContainer>
-    
   );
 }
 
