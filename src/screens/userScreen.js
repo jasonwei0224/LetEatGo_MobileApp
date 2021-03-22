@@ -7,25 +7,22 @@ import { StatusBar } from "expo-status-bar";
 export default function UserScreen({navigation}) {
 
   const handleSubmitPress = () => {
-    console.log("Working?")
-    alert("Working?")
+    alert("Now Come to the main!")    
     navigation.replace('TabNavigatorRoutes');
-    alert("Working2?")
+    
   }
   return (
-    <TouchableOpacity>
       <View style={styles.container}>
         <Text> This is a User Screen</Text>
         <View>
           <Text> Let Eat Go </Text>
           <FormTextInput placeholder="Email"></FormTextInput>
           <FormTextInput placeholder="Password"></FormTextInput>
-          <Button text="Log In" onPress = {()=> handleSubmitPress()}></Button>
+          <Button text="Log In" onClickEvent = {handleSubmitPress}></Button>
           <StatusBar style="auto" />
         </View>
           
       </View>
-    </TouchableOpacity>
   )
 }
 
