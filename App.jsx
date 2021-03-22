@@ -1,49 +1,62 @@
-import { StatusBar } from "expo-status-bar";
+
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import Button from "./src/components/Button";
 
+import SplashScreen from './src/screens/SplashScreen'
 import {NavigationContainer} from "@react-navigation/native";
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
-// import UserScreen from './src/screens/UserScreen'
-// import TestScreen from './src/screens/TestScreen'
+import {createStackNavigator} from '@react-navigation/stack';
+import TabNavigatorRoutes from './src/screens/TabNavigatorRoutes'
+import UserScreen from './src/screens/UserScreen'
+import RegisterScreen from './src/screens/RegisterScreen'
 
-import FormTextInput from "./src/components/FormTextInput";
 
 
+const Stack = createStackNavigator();
 
-function UserScreen() {
+const Auth = () => {
   return (
+    <Stack.Navigator initialRouteName="UserScreen">
+      <Stack.Screen
+        name="UserScreen"
+        component={UserScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={{
+          title: 'Register', //Set Header Title
+          headerStyle: {
+            backgroundColor: '#307ecc', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
-    <View>
-      <Text> This is a User Screen</Text>
-
-    <View style={styles.container}>
-      <Text> Let Eat Go </Text>
-      <FormTextInput placeholder="Email"></FormTextInput>
-      <FormTextInput placeholder="Password"></FormTextInput>
-      <Button text="Log In"></Button>
-      <StatusBar style="auto" />
-      
-    </View>
-  )
-}
-
-function TestScreen() {
-  return (
-    <View>
-      <Text> This is a test Screen</Text>
-    </View>
-  )
-}
-const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-    <Tab.Navigator>
-      <Tab.Screen name = "home" component = {UserScreen}></Tab.Screen>
-      <Tab.Screen name = "User" component = {TestScreen}></Tab.Screen>
-    </Tab.Navigator>
+    <Stack.Navigator initialRouteName = "SplashScreen">
+      <Stack.Screen 
+        name = "SplashScreen" 
+        component = {SplashScreen}
+        options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen 
+        name = "Auth" 
+        component = {Auth}
+        options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen 
+        name = "TabNavigatorRoutes" 
+        component = {TabNavigatorRoutes}
+        options={{headerShown: false}}></Stack.Screen>
+    </Stack.Navigator>
     </NavigationContainer>
     
   );

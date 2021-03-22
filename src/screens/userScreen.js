@@ -1,13 +1,32 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import FormTextInput from "../components/FormTextInput";
+import Button from '../components/Button'
+import { StatusBar } from "expo-status-bar";
 
-export default function UserScreen() {
+export default function UserScreen({navigation}) {
+
+  const handleSubmitPress = () => {
+    console.log("Working?")
+    alert("Working?")
+    navigation.replace('TabNavigatorRoutes');
+    alert("Working2?")
+  }
   return (
-
+    <TouchableOpacity>
       <View style={styles.container}>
-        <View style = {styles.header}></View>
+        <Text> This is a User Screen</Text>
+        <View>
+          <Text> Let Eat Go </Text>
+          <FormTextInput placeholder="Email"></FormTextInput>
+          <FormTextInput placeholder="Password"></FormTextInput>
+          <Button text="Log In" onPress = {()=> handleSubmitPress()}></Button>
+          <StatusBar style="auto" />
+        </View>
+          
       </View>
-  );
+    </TouchableOpacity>
+  )
 }
 
 const styles = StyleSheet.create({
