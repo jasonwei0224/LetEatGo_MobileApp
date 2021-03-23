@@ -10,8 +10,6 @@ import AsyncStorage from "@react-native-community/async-storage"
 
 const SplashScreen = ({navigation})=> {
     const [animating, setAnimating] = useState(true);
-
-
     useEffect(()=> {
         setTimeout(()=> {
             setAnimating(false);
@@ -21,22 +19,27 @@ const SplashScreen = ({navigation})=> {
                     value===null?'Auth':'TabNavigatorRoutes'
                 )
             })
-        },5000);
+        },50000);
     }, []);
 
     return (
         <View style = {styles.container}>
-            <Image
-                Source = {require('../../image/test.jpg')}
-                style = {{width:'90%', resizeMode :"contain", margin : 30}}>
-            </Image>
-            <ActivityIndicator
-                animating = {animating}
-                color = "#FFFFFF"
-                size = "large"
-                style = {styles.activityIndicator}>
+            <View style = {styles.case1}>
+                <Image
+                    source = {require('../../image/logo.png')}
+                    style = {{width:'50%', backgroundColor:'red', margin : 30}}>
+                </Image>
+            </View>
+            <View style = {styles.case2}>
+                <ActivityIndicator
+                    animating = {animating}
+                    color = "#FFFFFF"
+                    size = "large"
+                    style = {styles.activityIndicator}>
+                
+                </ActivityIndicator>
+            </View>
             
-            </ActivityIndicator>
 
 
         </View>
@@ -50,7 +53,17 @@ const styles = StyleSheet.create({
         flex : 1,
         alignItems : 'center',
         justifyContent:'center',
-        backgroundColor: "#307ecc"
+        flexDirection: "row"
+    },
+    case1 : {
+        flex : 2,
+        width : "100%",
+        flexDirection: "row"
+    },
+    case2 : {
+        flex : 1,
+        alignItems : 'center',
+        justifyContent:'center'
     },
     ActivityIndicator: {
         alignItems:'center',
