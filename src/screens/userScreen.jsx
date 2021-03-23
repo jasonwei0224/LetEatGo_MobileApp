@@ -12,11 +12,16 @@ import Button from "../components/Button";
 import { StatusBar } from "expo-status-bar";
 import Logo from "../assets/image/LetEatGoLogo.png";
 import { TextInput } from "react-native-gesture-handler";
+import RegisterScreen from "../screens/RegisterScreen.jsx";
 
 export default function UserScreen({ navigation }) {
   const handleSubmitPress = () => {
     alert("Now Come to the main!");
     navigation.replace("TabNavigatorRoutes");
+  };
+  const goToRegistration = () => {
+    // alert("Now Come to the main!");
+    navigation.push("RegisterScreen");
   };
   return (
     <View style={styles.container}>
@@ -30,7 +35,7 @@ export default function UserScreen({ navigation }) {
         <TouchableOpacity onPress={handleSubmitPress} style={styles.button}>
           <Text>Log In</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleSubmitPress} style={styles.signUpBtn}>
+        <TouchableOpacity onPress={goToRegistration} style={styles.signUpBtn}>
           <Text>Sign Up</Text>
         </TouchableOpacity>
         <StatusBar style="auto" />
