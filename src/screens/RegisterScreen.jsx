@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Logo from "../assets/image/LetEatGoLogo.png";
-import { StatusBar } from "expo-status-bar";
 
 export default function RegisterScreen() {
   const handleSubmitPress = () => {
@@ -13,7 +12,7 @@ export default function RegisterScreen() {
     <View style={styles.container}>
       <Image source={Logo} style={styles.logo}></Image>
       {/* <Text> This is a Register Screen</Text> */}
-      <View>
+      <View style = {styles.container2}>
         <TextInput placeholder="Email" style={styles.input}></TextInput>
         <TextInput placeholder="Password" style={styles.input}></TextInput>
         <TextInput
@@ -39,6 +38,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     backgroundColor: "#ffffff",
     marginTop: 10,
+    marginBottom:10,
+    padding:10
   },
   signUpBtn: {
     marginTop: 30,
@@ -53,4 +54,7 @@ const styles = StyleSheet.create({
     height: "40%",
     resizeMode: "center",
   },
+  container2 : {
+    width:"70%"
+  }
 });
