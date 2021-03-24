@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-import SplashScreen from "./src/screens/SplashScreen";
+import SplashScreen from "./src/screens/SplashScreen.jsx";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import TabNavigatorRoutes from "./src/screens/TabNavigatorRoutes";
+import TabNavigatorRoutes from "./src/screens/TabNavigatorRoutes.jsx";
 import UserScreen from "./src/screens/userScreen.jsx";
-import RegisterScreen from "./src/screens/RegisterScreen";
+import RegisterScreen from "./src/screens/RegisterScreen.jsx";
 
 const Stack = createStackNavigator();
 

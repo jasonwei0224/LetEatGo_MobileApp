@@ -19,21 +19,20 @@ const SplashScreen = ({navigation})=> {
                     value===null?'Auth':'TabNavigatorRoutes'
                 )
             })
-        },50000);
+        },5000);
     }, []);
 
     return (
         <View style = {styles.container}>
-            <View style = {styles.case1}>
-                <Image
-                    source = {require('../../image/logo.png')}
-                    style = {{width:'50%', backgroundColor:'red', margin : 30}}>
-                </Image>
-            </View>
+           
+            <Image
+                source = {require('../../image/logo.png')}
+                style = {styles.logo}>
+            </Image>
             <View style = {styles.case2}>
                 <ActivityIndicator
                     animating = {animating}
-                    color = "#FFFFFF"
+                    color = "#F2994A"
                     size = "large"
                     style = {styles.activityIndicator}>
                 
@@ -53,12 +52,7 @@ const styles = StyleSheet.create({
         flex : 1,
         alignItems : 'center',
         justifyContent:'center',
-        flexDirection: "row"
-    },
-    case1 : {
-        flex : 2,
-        width : "100%",
-        flexDirection: "row"
+        flexDirection: "column"
     },
     case2 : {
         flex : 1,
@@ -68,6 +62,13 @@ const styles = StyleSheet.create({
     ActivityIndicator: {
         alignItems:'center',
         height:80
-    }
+    },logo: {
+        display: "flex",
+        alignItems: "center",
+        width: "40%",
+        height: "40%",
+        resizeMode: "center",
+        marginTop:100
+      },
 
 })

@@ -7,12 +7,10 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import FormTextInput from "../components/FormTextInput";
-import Button from "../components/Button";
+
 import { StatusBar } from "expo-status-bar";
 import Logo from "../assets/image/LetEatGoLogo.png";
 import { TextInput } from "react-native-gesture-handler";
-import RegisterScreen from "../screens/RegisterScreen.jsx";
 
 export default function UserScreen({ navigation }) {
   const handleSubmitPress = () => {
@@ -28,7 +26,7 @@ export default function UserScreen({ navigation }) {
       {/* <Text> This is a User Screen</Text> */}
       <Image source={Logo} style={styles.logo}></Image>
 
-      <View>
+      <View style = {styles.container2}>
         {/* <Text> Let Eat Go </Text> */}
         <TextInput placeholder="Email" style={styles.input}></TextInput>
         <TextInput placeholder="Password" style={styles.input}></TextInput>
@@ -48,14 +46,15 @@ const styles = StyleSheet.create({
   input: {
     borderBottomColor: "black",
     borderBottomWidth: 1,
-    backgroundColor: "#ffffff",
     marginTop: 10,
+    marginBottom:10,
+    padding:10
   },
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   header: {
     flex: 5,
@@ -78,6 +77,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "40%",
     height: "40%",
-    resizeMode: "center",
+    resizeMode: "center"
   },
+  container2 : {
+    width:"70%"
+  }
 });
