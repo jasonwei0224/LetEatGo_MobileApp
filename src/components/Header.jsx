@@ -1,16 +1,30 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-const Header = (props) => {
+import { View, Text, StyleSheet, Animated } from "react-native";
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
+
+const HEADER_HEIGHT = 150;
+
+
+const Header = ({props}) => {
+  const insets = useSafeAreaInsets();
+  const headerHeights = props.interpolate({
+    inputRange : [0, 50  + insets.top],
+    outputRange : [HEADER_HEIGHT + insets.top, insets.top + 44], //44
+    extrapolate : 'clamp'
+  })
   return (
-    <View style={styles.container}>
-      <View style={styles.case1}>
-        <Text>{props.mainHeaderText}</Text>
-      </View>
-      <View style={styles.case2}>
-        <Text>{props.subHeaderText}</Text>
-      </View>
-    </View>
-  );
+    <Animated.View
+      style = {{
+        position : 'relative',
+        top:0,
+        left:0,
+        right:0,
+        zIndex : 10,
+        height: headerHeights,
+        backgroundColor:'#F2994A'
+      }}
+    ></Animated.View>
+  )
 };
 
 export default Header;
@@ -21,16 +35,22 @@ const styles = StyleSheet.create({
 
     backgroundColor: "white",
   },
-  case1: {
+  inner_container1: {
     flex: 5,
     backgroundColor: "#F2994A",
     width: "100%",
   },
-  case2: {
+  inner_container2: {
     flex: 1,
     backgroundColor: "#D07422",
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
+  subHeaderText : {
+    color : "white",
+    fontWeight:"bold",
+    fontSize:20
+  
+  }
 });

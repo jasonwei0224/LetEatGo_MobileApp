@@ -29,7 +29,7 @@ const History = () => {
     return (
       <View style={styles.container}>
         <View style={styles.noRecordHeader}>
-          <Header mainHeaderText="Test" subHeaderText="test2"></Header>
+          <Header mainHeaderText="" subHeaderText="Welcome"></Header>
         </View>
         <View style={styles.container}>
           <Text>There is no history</Text>

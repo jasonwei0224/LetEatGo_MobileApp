@@ -1,0 +1,31 @@
+ <FlatList
+          data={data}
+          contentContainerStyle={{
+            alignItems: 'center',
+            paddingTop: 20
+          }}
+          showsVerticalScrollIndicator={false}
+          scrollEventThrottle={16}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: offset } } }],
+            { useNativeDriver: false }
+          )}
+          renderItem={({ item }) => (
+            <TouchableOpacity 
+              style={styles.item} 
+              onPress = {()=>{navigation.navigate("Detail_restaurant", {
+                item : item
+            })}}>
+              <View style={styles.imageWrapper}>
+                <Image
+                  source={{ uri: item.mainPicture }}
+                  style={styles.logo}></Image>
+              </View>
+
+              <View style={styles.info}>
+                <Text style={styles.name}>{item.name}</Text>
+                <Text style={styles.addr}>{item.address}</Text>
+                <Text style={styles.desc}>{item.mainTitle}</Text>
+              </View>
+            </TouchableOpacity>
+          )}></FlatList>
