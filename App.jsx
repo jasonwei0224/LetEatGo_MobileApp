@@ -3,7 +3,8 @@ import { StyleSheet, Text, View } from "react-native";
 
 import SplashScreen from "./src/screens/SplashScreen.jsx";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createStackNavigator } from "@react-navigation/stack";
 import TabNavigatorRoutes from "./src/screens/TabNavigatorRoutes.jsx";
 import UserScreen from "./src/screens/userScreen.jsx";
@@ -40,6 +41,7 @@ const Auth = () => {
 
 export default function App() {
   return (
+    <SafeAreaProvider style={{ flex: 1 }} forceInset={{ top: 'always' }}>
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SplashScreen">
         <Stack.Screen
@@ -56,6 +58,7 @@ export default function App() {
           options={{ headerShown: false }}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 

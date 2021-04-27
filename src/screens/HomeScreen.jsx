@@ -1,56 +1,89 @@
-import React, { useEffect, useState } from "react";
-import { FlatList, View, Text, StyleSheet, Image } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
+import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity, Animated, EdgeInsetsPropType } from "react-native";
 import axios from "axios";
 import Header from "../components/Header.jsx";
 
-const HomeScreen = () => {
-  // const dataSet = [
-  //     {key: 1, name : "SWEET MEMORY", addr: "7835 13th Ave, Burnaby", desc : "#Brunch #Egg"},
-  //     {key: 2, name : "Ahn and Chi", addr: "135 7th Ave, Vancouver", desc : "#Cafe # study"},
-  //     {key: 3, name : "Milkcow Cafe", addr: "15325 110A, Surrey", desc : "#good # nice View"},
-  //     {key: 4, name : "Hiel Cafe", addr: "110, North Van", desc : "#delicious #Food"},
-  //     {key: 5, name : "Busan DAEJI", addr: "100 Cambie St, Vancouver", desc : "#very #damm"},
-  //     {key: 6, name : "The Keg steak", addr: "Langley, Vancouver", desc : "#super #tired"}
-  // ]
-  const [data, setData] = useState({});
+import DetailRestaurantScreen from "./DetailRestaurantScreen.jsx";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
+
+const Stack = createStackNavigator(); 
+const BOTTOM_HEIGHT = 500
+const Home_main = ({navigation, route}) => {
+  const [data, setData] = useState("weg");
+  const insets = useSafeAreaInsets();
+  const offset = useRef(new Animated.Value(0)).current;
+  
   useEffect(() => {
     axios
-      .get("https://leg-backend.herokuapp.com/api/v1/restaurant")
+      // .get("https://leg-backend.herokuapp.com/api/v1/restaurant")
+      .get("http://192.168.1.101:8080/api/v1/restaurant/")
       .then((res) => {
-        console.log(res.data["data"]);
         setData(res.data["data"]);
+        console.log(offset)
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [data]);
+
   return (
+    
     <View style={styles.container}>
       <View style={styles.headerView}>
-        <Header mainHeaderText="Test" subHeaderText="test2"></Header>
-      </View>
-      <View style={styles.case3}>
+        <Header style = {{flex : 1}}mainHeaderText="" subHeaderText="HOT DEAL" props = {offset}></Header>
         <FlatList
-          data={data}
-          renderItem={({ item }) => (
-            <View style={styles.case4}>
-              <View style={styles.imageWrapper}>
-                <Image
-                  // source = {require('../../image/logo.png')}
-                  source={{ uri: item.mainPicture }}
-                  style={styles.logo}></Image>
-              </View>
+        style = {{flex : 1}}
+        data={data}
 
-              <View style={styles.case5}>
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.addr}>{item.address}</Text>
-                <Text style={styles.desc}>{item.mainTitle}</Text>
-              </View>
+        showsVerticalScrollIndicator={false}
+        scrollEventThrottle={16}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: offset } } }],
+          { useNativeDriver: false }
+        )}
+        renderItem={({ item }) => (
+          <TouchableOpacity 
+            style={styles.item} 
+            onPress = {()=>{navigation.navigate("Detail_restaurant", {
+              item : item
+          })}}>
+            <View style={styles.imageWrapper}>
+              <Image
+                source={{ uri: item.mainPicture }}
+                style={styles.logo}></Image>
             </View>
-          )}></FlatList>
+
+            <View style={styles.info}>
+              <Text style={styles.name}>{item.name}</Text>
+              <Text style={styles.addr}>{item.address}</Text>
+              <Text style={styles.desc}>{item.mainTitle}</Text>
+            </View>
+          </TouchableOpacity>
+        )}></FlatList>
       </View>
     </View>
+  )
+}
+
+const HomeScreen = () => {
+  return (
+    <NavigationContainer independent = {true}>
+      <Stack.Navigator>
+        <Stack.Screen
+          name = "Home_main"
+          component = {Home_main}
+          options={{ headerShown: false }}>
+        </Stack.Screen>
+        <Stack.Screen
+          name = "Detail_restaurant"
+          component = {DetailRestaurantScreen}
+          options={{ headerShown: false }}>
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
@@ -66,21 +99,19 @@ const styles = StyleSheet.create({
   headerView: {
     flex: 5,
     width: "100%",
-  },
-  case3: {
-    flex: 10,
-    width: "100%",
-  },
-  case4: {
+  }, 
+  
+  item: {
     width: "100%",
     borderBottomWidth: 1,
     padding: 10,
-    borderColor: "gray",
+    borderColor: "lightgray",
     marginTop: 10,
     marginBottom: 10,
     flex: 1,
     flexDirection: "row",
   },
+  
   imageWrapper: {
     padding: 10,
   },
@@ -92,7 +123,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
   },
-  case5: {
+  info: {
     flex: 2,
   },
   name: {
