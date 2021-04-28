@@ -12,6 +12,7 @@ const Header = ({props}) => {
     outputRange : [HEADER_HEIGHT + insets.top, insets.top + 44], //44
     extrapolate : 'clamp'
   })
+
   return (
     <Animated.View
       style = {{
@@ -19,11 +20,17 @@ const Header = ({props}) => {
         top:0,
         left:0,
         right:0,
-        zIndex : 10,
+        zIndex : 100,
         height: headerHeights,
         backgroundColor:'#F2994A'
       }}
-    ></Animated.View>
+    >
+      <View style = {styles.inner_container1}>
+        <Text> HOT DEAL</Text>
+      </View>
+
+
+    </Animated.View>
   )
 };
 
@@ -42,7 +49,7 @@ const styles = StyleSheet.create({
   },
   inner_container2: {
     flex: 1,
-    backgroundColor: "#D07422",
+    backgroundColor:"red",
     width: "100%",
     alignItems: "center",
     justifyContent: "center",

@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
-import {View, Text, StyleSheet, Image,Pressable, Dimensions,ScrollView, TouchableOpacity, Modal } from "react-native";
+import {View, Text, StyleSheet, Image,Pressable, Dimensions,ScrollView, TouchableOpacity, Modal, Alert } from "react-native";
 
 
 import Header2 from "../components/Header2.jsx";
 import ImageSlider from "../components/ImageSlider.jsx";
+import testQRCode from "../assets/image/testQRCode.png";
 
 const {width} = Dimensions.get("window");
 const height = width * 0.6;
 
+
+
 const Detail_restaurant = ({navigation, route}) => {
     const [modal, setModal] = useState(false);
   
+    const test = () => {
+        
+        setModal(!modal)
+    }
     return (
       
       <View style={styles.container}>
@@ -87,17 +94,18 @@ const Detail_restaurant = ({navigation, route}) => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                     <Image
-                        source={{ uri:  route.params.item.mainPicture}}
+                        source={testQRCode}
                         style={styles.qrCode}></Image>
                     <Text style = { styles.text2 }>
                         All Waffle Menus Discount 20% until 31.Nov.2020</Text>
                     <Pressable
                         onPress={() => setModal(!modal)}
                     >
-                        <TouchableOpacity style={styles.btn_confirm}>
-                            <Text>Confirm</Text>
+                        <TouchableOpacity onPress={test}
+                            style={styles.btn_confirm}>
+                            <Text style= {styles.btn_confirm_text}>Confirm</Text>
                         </TouchableOpacity>
-                        <Text style={styles.textStyle}>Hide Modal</Text>
+                        <TouchableOpacity onPress={() => setModal(!modal)} style={styles.btn_confirm} ><Text style= {styles.btn_confirm_text}>QUIT</Text></TouchableOpacity>
                     </Pressable>
                     </View>
                 </View>
@@ -171,13 +179,17 @@ const styles = StyleSheet.create({
       marginBottom:10,
     },
     btn_confirm : {
-        // flex : 1,
-        width: "80%",
-        backgroundColor:"red",
+        width: 100,
+        backgroundColor:"#F2994A",
         margin:10,
-        padding:5,
-        borderWidth:1,
+        padding:15,
+        textAlign:"center",
         borderRadius:10
+    },
+    btn_confirm_text : {
+        textAlign:"center",
+        color : "white",
+        fontWeight:"bold"
     },
     res_name : {
       flex: 2,
@@ -231,6 +243,6 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.25,
       shadowRadius: 4,
       elevation: 5,
-      height:300
+      height:450
     },
   });
