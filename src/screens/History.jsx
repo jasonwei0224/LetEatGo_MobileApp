@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, View, Text, StyleSheet, Image } from "react-native";
-import Header from "../components/Header";
+import Header2 from "../components/Header2";
 
 const DATA = [
   //   { restaurantName: "Sweet Memory", date: "2021-Mar-31", amount: "0.5" },
@@ -29,7 +29,7 @@ const History = () => {
     return (
       <View style={styles.container}>
         <View style={styles.noRecordHeader}>
-          <Header mainHeaderText="" subHeaderText="Welcome"></Header>
+          <Header2 mainHeaderText="Welcome!" subHeaderText="Sangwook"></Header2>
         </View>
         <View style={styles.container}>
           <Text>There is no history</Text>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   noRecordHeader: {
-    flex: 0.5,
+    flex: 0.2,
     width: "100%",
   },
   headerView: {
