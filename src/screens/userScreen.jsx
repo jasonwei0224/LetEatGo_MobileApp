@@ -12,7 +12,18 @@ import { StatusBar } from "expo-status-bar";
 import Logo from "../assets/image/LetEatGoLogo.png";
 import { TextInput } from "react-native-gesture-handler";
 
-export default function UserScreen({ navigation }) {
+import {connect} from 'react-redux'
+import {onUserLogin, onFetchProduct} from '../redux'
+
+
+
+function UserScreen({ navigation, props }) {
+
+  // const {userReducer, onUserLogin, onFetchProduct} = props;
+  // const {user, products} = userReducer;
+
+  // console.log(user, products)
+
   const handleSubmitPress = () => {
     alert("Now Come to the main!");
     navigation.replace("TabNavigatorRoutes");
@@ -36,11 +47,24 @@ export default function UserScreen({ navigation }) {
         <TouchableOpacity onPress={goToRegistration} style={styles.signUpBtn}>
           <Text>Sign Up</Text>
         </TouchableOpacity>
+
+
         <StatusBar style="auto" />
       </View>
     </View>
   );
 }
+
+// const mapStateToProps = (state) => ({
+//   userReducer : state.userReducer
+// })
+
+// const UserScreen = connect(mapStateToProps, {onUserLogin, onFetchProduct})(
+//   _UserScreen
+// )
+
+
+export default UserScreen
 
 const styles = StyleSheet.create({
   input: {

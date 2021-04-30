@@ -26,7 +26,7 @@ const Header = ({props}) => {
       }}
     >
       <View style = {styles.inner_container1}>
-        <Text> HOT DEAL</Text>
+        <Text style = {styles.title}> HOT DEAL</Text>
       </View>
 
 
@@ -59,5 +59,13 @@ const styles = StyleSheet.create({
     fontWeight:"bold",
     fontSize:20
   
+  },
+  title : {
+    padding:10,
+    margin:30,
+    textAlign:"center",
+    fontWeight:"bold",
+    fontSize:20
   }
+
 });

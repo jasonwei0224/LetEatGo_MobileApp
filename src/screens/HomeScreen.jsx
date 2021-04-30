@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
-import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity, Animated, EdgeInsetsPropType } from "react-native";
+import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { FlatList, View, Text, StyleSheet, Image, TouchableOpacity, Animated, Alert } from "react-native";
 import axios from "axios";
 import Header from "../components/Header.jsx";
 
@@ -9,34 +9,27 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 
+import {connect} from 'react-redux'
+import {onUserLogin, onFetchRestaurant} from '../redux'
+
+
 const Stack = createStackNavigator(); 
 const BOTTOM_HEIGHT = 500
-const Home_main = ({navigation, route}) => {
+const Home_main = ({navigation, route} ) => {
   const [data, setData] = useState("weg");
-  const insets = useSafeAreaInsets();
   const offset = useRef(new Animated.Value(0)).current;
   
-  useEffect(() => {
-    axios
-      // .get("https://leg-backend.herokuapp.com/api/v1/restaurant")
-      .get("http://192.168.1.101:8080/api/v1/restaurant/")
-      .then((res) => {
-        setData(res.data["data"]);
-        console.log(offset)
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [data]);
+  console.log("!!!!!!", route.params.test)
 
   return (
     
     <View style={styles.container}>
       <View style={styles.headerView}>
         <Header style = {{flex : 1}}mainHeaderText="" subHeaderText="HOT DEAL" props = {offset}></Header>
+        
         <FlatList
         style = {{flex : 1}}
-        data={data}
+        data={route.params.test}
 
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
@@ -46,6 +39,7 @@ const Home_main = ({navigation, route}) => {
         )}
         renderItem={({ item }) => (
           <TouchableOpacity 
+            key = {item.name}
             style={styles.item} 
             onPress = {()=>{navigation.navigate("Detail_restaurant", {
               item : item
@@ -68,15 +62,36 @@ const Home_main = ({navigation, route}) => {
   )
 }
 
-const HomeScreen = () => {
+
+
+const _HomeScreen = (props) => {
+  const {userReducer, onUserLogin, onFetchRestaurant} = props;
+  const {user, products} = userReducer;
+  useEffect(()=> {
+    onFetchRestaurant()
+  }, [])
   return (
     <NavigationContainer independent = {true}>
       <Stack.Navigator>
-        <Stack.Screen
-          name = "Home_main"
-          component = {Home_main}
-          options={{ headerShown: false }}>
-        </Stack.Screen>
+        {products!=undefined  ?
+            <Stack.Screen
+              name = "Home_main"
+              component = {Home_main}
+              options={{ headerShown: false }}
+              initialParams = {{test : products['data']}}>
+              
+            </Stack.Screen> 
+          :
+          
+          
+            <Stack.Screen
+              name = "Home_main"
+              component = {Home_main}
+              options={{ headerShown: false }}>
+              
+            </Stack.Screen> 
+          }
+        
         <Stack.Screen
           name = "Detail_restaurant"
           component = {DetailRestaurantScreen}
@@ -86,6 +101,16 @@ const HomeScreen = () => {
     </NavigationContainer>
   );
 };
+
+
+const mapStateToProps = (state) => ({
+  userReducer : state.userReducer
+})
+
+const HomeScreen = connect(mapStateToProps, {onUserLogin, onFetchRestaurant})(
+  _HomeScreen
+)
+
 
 export default HomeScreen;
 

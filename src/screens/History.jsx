@@ -1,31 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, View, Text, StyleSheet, Image } from "react-native";
+import { FlatList, View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import Header2 from "../components/Header2";
+
+import {connect} from 'react-redux'
+import {onUserLogin, onFetchRestaurant} from '../redux'
 
 const DATA = [
   //   { restaurantName: "Sweet Memory", date: "2021-Mar-31", amount: "0.5" },
   //   { restaurantName: "Sweet", date: "2021-Mar-32", amount: "0.6" },
 ];
-const Item = ({ name, date, amount }) => {
+const Item = (props) => {
   return (
     <View style={styles.item}>
       <View style={styles.col1}>
-        <Text style={styles.title}>{name}</Text>
-        <Text style={styles.date}>{date}</Text>
+        <Text style={styles.title}>{props.newid}</Text>
+        <Text style={styles.date}>{props.newid}</Text>
       </View>
       <View style={styles.col2}>
-        <Text style={styles.amount}>${amount}</Text>
+        <Text style={styles.amount}>${props.newid}</Text>
       </View>
     </View>
   );
 };
-const History = () => {
-  const renderItem = ({ item }) => {
-    return (
-      <Item name={item.restaurantName} date={item.date} amount={item.amount} />
-    );
-  };
-  if (DATA === undefined || DATA.length == 0) {
+const _History = (props) => {
+
+  const {userReducer, onUserLogin, onFetchRestaurant} = props;
+  const {user, products} = userReducer;
+  useEffect(()=> {
+    onFetchRestaurant()
+  }, [])
+  // const renderItem = ({ item }) => {
+  //   console.log(item)
+  //   return (
+  //     <Item name={item.name} date={item.newid} amount={item.phone} />
+  //   );
+  // };
+  {console.log(products)}
+  if (products == undefined) {
     return (
       <View style={styles.container}>
         <View style={styles.noRecordHeader}>
@@ -33,22 +44,56 @@ const History = () => {
         </View>
         <View style={styles.container}>
           <Text>There is no history</Text>
+          
         </View>
+
+
+
+        <TouchableOpacity style = {styles.container}
+        onPress = {
+          () => onFetchRestaurant()
+        }>
+          <Text>Test</Text> 
+        </TouchableOpacity>
+        
+        
       </View>
     );
   } else {
     return (
       <View style={styles.container}>
         <View style={styles.headerView}>
-          <Header mainHeaderText="Test" subHeaderText="test2"></Header>
+          <Header2 mainHeaderText="TestWorking?" subHeaderText="test2"></Header2>
+          
+
+          <FlatList data={products['data']} 
+          style = {{flex : 1}}
+          renderItem={({item})=> (
+            <TouchableOpacity 
+             key = {item.name}>
+              <View><Text>This is a data</Text></View>
+              <View><Text>{item.name}</Text></View>
+              
+            </TouchableOpacity>
+          )} />
         </View>
         <View style={styles.body}>
-          <FlatList data={DATA} renderItem={renderItem} />
+         
         </View>
       </View>
     );
   }
 };
+
+
+
+const mapStateToProps = (state) => ({
+  userReducer : state.userReducer
+})
+
+const History = connect(mapStateToProps, {onUserLogin, onFetchRestaurant})(
+  _History
+)
 
 export default History;
 
@@ -98,3 +143,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
+
+
+// {products!==undefined && <Text style = {{marginLeft : 20, marginRight: 20, fontSize:16, backgroundColor: 'red'}}>
+// {JSON.stringify(products)}
+// </Text>}

@@ -10,6 +10,8 @@ import TabNavigatorRoutes from "./src/screens/TabNavigatorRoutes.jsx";
 import UserScreen from "./src/screens/userScreen.jsx";
 import RegisterScreen from "./src/screens/RegisterScreen.jsx";
 
+import {store} from './src/redux'
+import {Provider} from 'react-redux'
 const Stack = createStackNavigator();
 
 const Auth = () => {
@@ -24,16 +26,6 @@ const Auth = () => {
         name="RegisterScreen"
         component={RegisterScreen}
         options={{ headerShown: false }}
-        // options={{
-        //   title: "Register", //Set Header Title
-        //   headerStyle: {
-        //     backgroundColor: "#307ecc", //Set Header color
-        //   },
-        //   headerTintColor: "#fff", //Set Header text color
-        //   headerTitleStyle: {
-        //     fontWeight: "bold", //Set Header text style
-        //   },
-        // }}
       />
     </Stack.Navigator>
   );
@@ -41,24 +33,27 @@ const Auth = () => {
 
 export default function App() {
   return (
-    <SafeAreaProvider style={{ flex: 1 }} forceInset={{ top: 'always' }}>
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="SplashScreen">
-        <Stack.Screen
-          name="SplashScreen"
-          component={SplashScreen}
-          options={{ headerShown: false }}></Stack.Screen>
-        <Stack.Screen
-          name="Auth"
-          component={Auth}
-          options={{ headerShown: false }}></Stack.Screen>
-        <Stack.Screen
-          name="TabNavigatorRoutes"
-          component={TabNavigatorRoutes}
-          options={{ headerShown: false }}></Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
-    </SafeAreaProvider>
+    <Provider store = {store}>
+      <SafeAreaProvider style={{ flex: 1 }} forceInset={{ top: 'always' }}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="SplashScreen">
+          <Stack.Screen
+            name="SplashScreen"
+            component={SplashScreen}
+            options={{ headerShown: false }}></Stack.Screen>
+          <Stack.Screen
+            name="Auth"
+            component={Auth}
+            options={{ headerShown: false }}></Stack.Screen>
+          <Stack.Screen
+            name="TabNavigatorRoutes"
+            component={TabNavigatorRoutes}
+            options={{ headerShown: false }}></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
+    
   );
 }
 
